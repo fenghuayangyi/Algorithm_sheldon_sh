@@ -1,0 +1,153 @@
+/***
+*@title 	Algorihm_Sort_Classic Conclusion
+*@author	shaohua_zhang
+***/
+
+//冒泡排序 	稳定，且可以做到性能与初始数组无关
+public static void BubbleSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	for(int i=arr.length-1; i>0; i--){
+		for(int j=0; j<i; j++){
+			if(arr[j+1]<arr[j])
+				swap(arr,j,j+1);
+		}
+	}
+}
+
+//选择排序	不稳定，性能与初始数组无关
+public static void SelectionSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	for(int i=0; i<arr.length-1; i++){
+		int minindex = i;
+		for(int j=i+1; j<arr.length; j++){
+			minindex = arr[j]<arr[minindex]?j:minindex;
+		}
+		swap(arr,mindex,i);
+	}
+}
+
+//插入排序	稳定，且性能与初始数组有关
+public static void SelectionSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	for(int i=1; i<arr.length; i++){
+		for(int j=i-1; j>=0; j--){
+			if(arr[j]>arr[j+1])
+				swap(arr,j,j+1);
+			else
+				break;
+		}
+	}
+}
+
+//归并排序	稳定，且性能与初始数组无关
+public static void mergeSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	mergeSort(arr, 0, arr.length-1);
+}
+public static void mergeSort(int[] arr, int left, int right){
+	if(left = right)
+		return ;
+	int mid = left + (right-left)>>2;
+	mergeSort(arr, left, mid);
+	mergeSort(arr, mid+1, right);
+	mergr(arr, left, mid, right);
+}
+public static void mergeSort(int[] arr, int left, int mid, int right){
+	int[] newarr = new int[right-left+1];
+	int i = 0, p = left, q = mid + 1;
+	while(p<=mid && q<=right){
+		newarr[i++] = arr[p]<arr[q]?arr[p++]:arr[q++];
+	}
+	while(p<=mid){
+		newarr[i++] = arr[p++];
+	}
+	while(q<=right){
+		newarr[i++] = arr[q++];
+	}
+	for(i = 0; i<newarr.length; i++){
+		arr[left + i] = newarr[i];
+	}
+}
+
+//快速排序   不稳定，且性能与初始数组有关
+public static void quickSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	quickSort(arr, 0, arr.length-1);
+}
+public static void quickSort(int[] arr, int left, int right){
+	if(left < right){
+		swap(arr, left+(int)(Math.random()*(right-left+1)), right);
+		int[] p = partition(arr, left, right);
+		quickSort(arr, left, p[0]-1);
+		quickSort(arr, p[1]+1, right);
+	}
+}
+public static void partition(int[] arr, int left, int right){
+	int less = left - 1;
+	int more = right;	//right相当于哨兵下标
+	while(left < more){
+		if(arr(left)<arr(right)){
+			swap(arr, ++less, l++);
+		}else if(arr(left)>arr(right)){
+			swap(arr, --more, left);
+		}else{
+			left++;
+		}
+	}
+	swap(arr, more, right);
+	return new int[]{less+1, more};
+}
+
+//堆排序 1.heapInsert() 初始化大根堆	2.交换首尾	3.heapify() 首元素下沉的合适位置，重新构成大根堆
+public static void heapSort(int[] arr){
+	if(arr==null || arr.length<2){
+		return ;
+	}
+	for(int i = 0; i<arr.length; i++){
+		heapInsert(arr, i);
+	}
+	int size = arr.length;
+	swap(arr, 0, --size);
+	while(size>0){
+		heapify(arr, 0, size);
+		swap(arr, 0, --size);
+	}
+}
+public static void heapInsert(int[] arr, int index){
+	while(arr[index]>arr[(index-1)/2]){//当前节点为孩子节点，且孩子节点大于父亲节点
+		swap(arr, index, (index-1)/2);
+		index = (index-1)/2；
+	}
+}
+public static void heapify(int[] arr, int index, int size){
+	int left = index * 2 + 1;
+	while(left < size){
+		int largest = left+1 < size && arr[left+1] > arr[left] ? left+1 : left ;
+		if(largest == index)
+			break;
+		swap(arr, largest, index)
+		index = largest;
+		left = index * 2 + 1;
+	}
+}
+
+
+
+//公共方法
+public static void swap(int[] arr, i, j){
+	arr[i] = arr[i]^arr[j];
+	arr[j] = arr[i]^arr[j];
+	arr[i] = arr[i]^arr[j];
+}
+
+
