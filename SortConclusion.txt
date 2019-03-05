@@ -108,7 +108,8 @@ public static void partition(int[] arr, int left, int right){
 	return new int[]{less+1, more};
 }
 
-//堆排序 1.heapInsert() 初始化大根堆	2.交换首尾	3.heapify() 首元素下沉的合适位置，重新构成大根堆
+//堆排序	不稳定，性能与初始数组无关
+//1.heapInsert() 初始化大根堆	2.交换首尾	3.heapify() 首元素下沉的合适位置，重新构成大根堆
 public static void heapSort(int[] arr){
 	if(arr==null || arr.length<2){
 		return ;
